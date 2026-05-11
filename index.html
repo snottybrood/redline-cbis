@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>DistrictLens — Redistricting Integrity Dashboard</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+
+:root {
+  --bg:#0b0f14;
+  --panel:#111823;
+  --panel2:#161f2c;
+  --border:#243041;
+
+  --text:#e8eef7;
+  --muted:#93a4b8;
+
+  --blue:#4da3ff;
+  --green:#2dd4bf;
+  --amber:#fbbf24;
+  --red:#fb7185;
+  --purple:#a78bfa;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:Inter,system-ui,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:13px;
+}
+
+/* HEADER */
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 18px;
+  background:var(--panel);
+  border-bottom:1px solid var(--border);
+}
+
+.logo{
+  font-family:"IBM Plex Mono";
+  font-weight:700;
+  letter-spacing:.5px;
+}
+
+.logo span{color:var(--blue)}
+
+.tag{
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+/* SUMMARY */
+.summary{
+  display:flex;
+  gap:16px;
+  padding:10px 18px;
+  border-bottom:1px solid var(--border);
+  background:var(--panel2);
+}
+
+.metric{
+  display:flex;
+  flex-direction:column;
+}
+
+.metric strong{
+  font-family:"IBM Plex Mono";
+  font-size:15px;
+}
+
+.metric span{
+  font-size:10px;
+  color:var(--muted);
+}
+
+/* LAYOUT */
+.layout{
+  display:grid;
+  grid-template-columns:260px 1fr 340px;
+  height:calc(100vh - 90px);
+}
+
+/* LEFT */
+.left{
+  background:var(--panel);
+  border-right:1px solid var(--border);
+  overflow:auto;
+}
+
+.section{
+  padding:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.label{
+  font-family:"IBM Plex Mono";
+  font-size:10px;
+  color:var(--muted);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+
+/* STATES */
+.state{
+  display:flex;
+  justify-content:space-between;
+  padding:6px 0;
+  cursor:pointer;
+}
+
+.state:hover{color:var(--blue)}
+
+.badge{
+  font-family:"IBM Plex Mono";
+  font-size:10px;
+}
+
+/* CENTER */
+.center{
+  position:relative;
+  background:#0b0f14;
+}
+
+.map{
+  width:100%;
+  height:100%;
+}
+
+/* RIGHT */
+.right{
+  background:var(--panel);
+  border-left:1px solid var(--border);
+  overflow:auto;
+}
+
+.card{
+  margin:12px;
+  padding:12px;
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:8px;
+}
+
+.card h3{
+  font-size:13px;
+  margin-bottom:6px;
+}
+
+.muted{color:var(--muted)}
+
+/* BAR */
+.bar{
+  display:flex;
+  height:22px;
+  border-radius:6px;
+  overflow:hidden;
+  margin:10px 0;
+}
+
+.bar .a{background:var(--red)}
+.bar .b{background:var(--blue)}
+
+/* TABLE */
+table{
+  width:100%;
+  font-size:11px;
+  border-collapse:collapse;
+}
+
+td,th{
+  padding:6px;
+  border-bottom:1px solid var(--border);
+}
+
+th{
+  text-align:left;
+  color:var(--muted);
+  font-family:"IBM Plex Mono";
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="logo">District<span>Lens</span></div>
+  <div class="tag">Redistricting integrity analytics platform</div>
+</div>
+
+<!-- SUMMARY -->
+<div class="summary">
+  <div class="metric">
+    <strong>6</strong>
+    <span>States in review</span>
+  </div>
+  <div class="metric">
+    <strong>14+</strong>
+    <span>Seats affected</span>
+  </div>
+  <div class="metric">
+    <strong>3</strong>
+    <span>Maps under revision</span>
+  </div>
+  <div class="metric">
+    <strong>2</strong>
+    <span>VRA-protected states</span>
+  </div>
+</div>
+
+<div class="layout">
+
+<!-- LEFT -->
+<div class="left">
+
+  <div class="section">
+    <div class="label">State status</div>
+    <div class="state"><span>Florida</span><span class="badge" style="color:var(--red)">Enacted</span></div>
+    <div class="state"><span>Louisiana</span><span class="badge" style="color:var(--amber)">In review</span></div>
+    <div class="state"><span>Texas</span><span class="badge" style="color:var(--amber)">Likely update</span></div>
+    <div class="state"><span>Virginia</span><span class="badge" style="color:var(--blue)">Active analysis</span></div>
+    <div class="state"><span>California</span><span class="badge" style="color:var(--green)">Protected</span></div>
+  </div>
+
+</div>
+
+<!-- CENTER -->
+<div class="center">
+  <svg class="map"></svg>
+</div>
+
+<!-- RIGHT -->
+<div class="right">
+
+  <div class="card">
+    <h3>Representation snapshot</h3>
+    <div class="muted">Florida congressional map (current cycle)</div>
+
+    <div class="bar">
+      <div class="a" style="width:65%"></div>
+      <div class="b" style="width:35%"></div>
+    </div>
+
+    <div class="muted">Seats vs vote share divergence</div>
+  </div>
+
+  <div class="card">
+    <h3>Impact summary</h3>
+    <table>
+      <tr><th>Metric</th><th>Value</th></tr>
+      <tr><td>Seat shift risk</td><td>+4</td></tr>
+      <tr><td>VRA districts affected</td><td>2</td></tr>
+      <tr><td>Map status</td><td>Enacted</td></tr>
+    </table>
+  </div>
+
+</div>
+
+</div>
+
+</body>
+</html>
